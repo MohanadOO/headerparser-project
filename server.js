@@ -1,5 +1,6 @@
 var express = require('express')
 var app = express()
+const path = require('path')
 const { lookup } = require('geoip-lite')
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
@@ -8,13 +9,13 @@ var cors = require('cors')
 app.use(cors({ optionsSuccessStatus: 200 })) // some legacy browsers choke on 204
 
 // http://expressjs.com/en/starter/static-files.html
-app.use(express.static('public'))
+app.use(express.static(__dirname + '/public'))
 
 app.set('view engine', 'ejs')
 
 // your first API endpoint...
 app.get('/', (req, res) => {
-  res.render('index')
+  res.render(path.join(__dirname + '/views/index.ejs'))
 })
 
 app.get('/api/whoami', (req, res) => {
